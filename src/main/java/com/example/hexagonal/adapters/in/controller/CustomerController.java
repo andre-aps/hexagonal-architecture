@@ -20,7 +20,7 @@ public class CustomerController {
     private final CustomerMapper customerMapper;
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody @Valid CustomerRequest customerRequest) {
+    public ResponseEntity<Void> insert(@RequestBody @Valid final CustomerRequest customerRequest) {
         var customer = customerMapper.toCustomer(customerRequest);
         insertCustomerInputPort.insert(customer, customerRequest.getZipCode());
         return ResponseEntity.ok().build();

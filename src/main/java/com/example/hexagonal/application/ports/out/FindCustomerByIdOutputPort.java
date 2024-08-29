@@ -2,8 +2,10 @@ package com.example.hexagonal.application.ports.out;
 
 import com.example.hexagonal.application.core.domain.Customer;
 
-public interface InsertCustomerOutputPort {
+import java.util.Optional;
 
-    void insert(final Customer customer);
+public interface FindCustomerByIdOutputPort {
+
+    Optional<Customer> find(final String id);
 
 }
