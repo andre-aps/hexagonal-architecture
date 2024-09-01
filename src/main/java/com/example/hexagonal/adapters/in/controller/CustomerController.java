@@ -5,15 +5,11 @@ import com.example.hexagonal.adapters.in.controller.request.CustomerRequest;
 import com.example.hexagonal.adapters.in.controller.response.CustomerResponse;
 import com.example.hexagonal.application.ports.in.FindCustomerByIdInputPort;
 import com.example.hexagonal.application.ports.in.InsertCustomerInputPort;
+import com.example.hexagonal.application.ports.in.UpdateCustomerInputPort;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +18,7 @@ public class CustomerController {
 
     private final InsertCustomerInputPort insertCustomerInputPort;
     private final FindCustomerByIdInputPort findCustomerByIdInputPort;
+    private final UpdateCustomerInputPort updateCustomerInputPort;
     private final CustomerMapper customerMapper;
 
     @PostMapping
@@ -36,6 +33,14 @@ public class CustomerController {
         var customer = findCustomerByIdInputPort.find(id);
         var customerResponse = customerMapper.toCustomerResponse(customer);
         return ResponseEntity.ok().body(customerResponse);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable final String id, @RequestBody @Valid final CustomerRequest customerRequest) {
+        var customer = customerMapper.toCustomer(customerRequest);
+        customer.setId(id);
+        updateCustomerInputPort.update(customer, customerRequest.getZipCode());
+        return ResponseEntity.noContent().build();
     }
 
 }
