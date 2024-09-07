@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 public class InsertCustomerConfig {
 
     @Bean
-    public InsertCustomerUseCase insertCustomerUseCase(FindAddressByZipCodeAdapter findAddressByZipCodeAdapter,
-                                                       InsertCustomerAdapter insertCustomerAdapter,
-                                                       SendCpfValidationAdapter sendCpfValidationAdapter) {
+    public InsertCustomerUseCase insertCustomerUseCase(final FindAddressByZipCodeAdapter findAddressByZipCodeAdapter,
+        final InsertCustomerAdapter insertCustomerAdapter,
+        final SendCpfValidationAdapter sendCpfValidationAdapter) {
         return new InsertCustomerUseCase(findAddressByZipCodeAdapter, insertCustomerAdapter, sendCpfValidationAdapter);
     }
 

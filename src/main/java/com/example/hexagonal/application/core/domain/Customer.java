@@ -52,11 +52,11 @@ public class Customer {
         this.cpf = cpf;
     }
 
-    public Boolean getValidCpf() {
+    public Boolean getIsValidCpf() {
         return isValidCpf;
     }
 
-    public void setValidCpf(final Boolean validCpf) {
+    public void setIsValidCpf(final Boolean validCpf) {
         isValidCpf = validCpf;
     }
 
